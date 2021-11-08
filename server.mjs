@@ -30,13 +30,14 @@ app.get('/user/:id', (req, res) => {
 })
 app.post('/user', (req, res) => {
 
-  if (!req.body.name || !req.body.email || !req.body.address) {
+  if (!req.body.name || !req.body.father_name || !req.body.email || !req.body.password) {
     res.status(400).send("invalid data");
   } else {
     users.push({
       name: req.body.name,
+      father_name: req.body.father_name,
       email: req.body.email,
-      address: req.body.address
+      address: req.body.password
     })
 
     res.send("users created");
@@ -49,11 +50,14 @@ app.put('/user/:id', (req, res) => {
     if (req.body.name) {
       users[req.params.id].name = req.body.name
     }
+    if (req.body.father_name) {
+      users[req.params.id].father_name = req.body.father_name
+    }
     if (req.body.email) {
       users[req.params.id].email = req.body.email
     }
     if (req.body.address) {
-      users[req.params.id].address = req.body.address
+      users[req.params.id].password = req.body.password
     }
 
     res.send(users[req.params.id])
@@ -78,16 +82,7 @@ app.delete('/user/:id', (req, res) => {
   }
 })
 
-app.get('/home', (req, res) => {
-  res.send('here is your home')
-})
-app.get('/', (req, res) => {
-  res.send('Hi I am a hello world Server program')
-})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
-
-// deploy this server to heroku cloud
-// read: https://devcenter.heroku.com/articles/getting-started-with-nodejs
